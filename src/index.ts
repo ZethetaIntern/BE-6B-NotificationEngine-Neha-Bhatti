@@ -4,7 +4,7 @@ import { pgPool, initializeDatabase } from './config/db';
 
 dotenv.config();
 
-const app = express();
+export const app = express();
 const PORT = Number(process.env.PORT || 3000);
 
 app.use(express.json());
@@ -53,7 +53,7 @@ app.post(
           type,
           channel,
           JSON.stringify(payload || {}),
-        ]
+        ],
       );
 
       res.status(201).json({
@@ -67,7 +67,7 @@ app.post(
         error: 'Failed to process notification',
       });
     }
-  }
+  },
 );
 
 const startServer = async (): Promise<void> => {
@@ -84,4 +84,6 @@ const startServer = async (): Promise<void> => {
   }
 };
 
-startServer();
+if (require.main === module) {
+  startServer();
+}
